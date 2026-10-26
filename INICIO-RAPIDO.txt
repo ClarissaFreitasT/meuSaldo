@@ -1,0 +1,12 @@
+MEUSALDO — COMO COMEÇAR
+
+1. Instale Node.js e inicie MySQL/MariaDB.
+2. Crie o banco vazio chamado meusaldo.
+3. Abra o terminal em backend e execute npm install.
+4. Copie backend/.env.example para backend/.env e ajuste os dados do banco.
+5. Execute npm run prisma:generate e npm run prisma:migrate.
+6. Execute npm run dev no backend.
+7. Em outro terminal, entre em frontend, execute npm install e npm run dev.
+8. Abra o endereço local mostrado pelo Vite.
+
+Leia README.md para instruções completas. O projeto precisa ser instalado e testado no seu computador antes de ser considerado pronto para entrega.

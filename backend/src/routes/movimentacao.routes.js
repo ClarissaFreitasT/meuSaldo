@@ -1,0 +1,11 @@
+import { Router } from "express";
+import { listar, consultar, criar, atualizar, excluir } from "../controllers/movimentacao.controller.js";
+import { autenticar } from "../middlewares/auth.middleware.js";
+const router = Router();
+router.use(autenticar);
+router.get("/", listar);
+router.post("/", criar);
+router.get("/:id", consultar);
+router.put("/:id", atualizar);
+router.delete("/:id", excluir);
+export default router;

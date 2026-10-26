@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum TipoMovimentacao {
+  ENTRADA
+  DESPESA
+}
+
+model Usuario {
+  id           String             @id @default(cuid())
+  nome         String
+  email        String             @unique
+  senhaHash    String
+  criadoEm     DateTime           @default(now())
+  movimentacoes Movimentacao[]
+  fechamentos  FechamentoMensal[]
+
+  @@map("usuarios")
+}
+
+model Movimentacao {
+  id          String            @id @default(cuid())
+  usuarioId   String
+  descricao   String
+  valor       Decimal           @db.Decimal(12, 2)
+  tipo        TipoMovimentacao
+  categoria   String
+  data        DateTime          @db.Date
+  criadoEm    DateTime          @default(now())
+  usuario     Usuario           @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@index([usuarioId, data])
+  @@map("movimentacoes")
+}
+
+model FechamentoMensal {
+  id          String   @id @default(cuid())
+  usuarioId   String
+  mes         Int
+  ano         Int
+  encerradoEm DateTime @default(now())
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@unique([usuarioId, mes, ano])
+  @@map("fechamentos_mensais")
+}
